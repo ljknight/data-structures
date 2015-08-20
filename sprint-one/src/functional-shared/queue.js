@@ -31,11 +31,11 @@ var queueMethods = {
     }
 
     var keyValues = _.zip(keys, values);
-
-    // this.storage = {};
+    var context = this;
+    context.storage = {};
 
     _.each(keyValues, function(pairs){
-      this.storage[[pairs[0]]] = pairs[1];
+      context.storage[[pairs[0]]] = pairs[1];
     });
 
     return dequeued;
