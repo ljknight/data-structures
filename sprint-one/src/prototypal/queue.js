@@ -2,39 +2,23 @@ var Queue = function() {
   var someInstance = Object.create(queueMethods);
 
   someInstance.storage = {};
+  someInstance.head = 0;
+  someInstance.tail = 0;
 
   return someInstance;
 };
 
 var queueMethods = {
   enqueue: function(value) {
-    this.storage[Object.keys(this.storage).length] = value;
+    this.storage[this.tail] = value;
+    this.tail++;
   },
 
   dequeue: function() {
-    var dequeued = this.storage[0];
-    // create another array of values
-    var values = [];
-    var keys = [];
-    console.log(this.storage);
-    delete this.storage[0];
-
-    for( var key in this.storage ){
-      values.push(this.storage[key]);
-    }
-    for( var i = 0; i < values.length; i++ ){
-      keys.push(i);
-    }
-
-    var keyValues = _.zip(keys, values);
-    var context = this;
-    context.storage = {};
-
-    _.each(keyValues, function(pairs){
-      context.storage[[pairs[0]]] = pairs[1];
-    });
-
-    return dequeued;
+    var value = this.storage[this.head];
+    delete this.storage[this.head];
+    this.head++;
+    return value;
   },
 
   size: function() {

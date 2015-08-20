@@ -1,34 +1,19 @@
 var Queue = function() {
   this.storage = {};
+  this.head = 0;
+  this.tail = 0;
 };
 
 Queue.prototype.enqueue = function(value){
-  this.storage[Object.keys(this.storage).length] = value;
+  this.storage[this.tail] = value;
+  this.tail++;
 };
 
 Queue.prototype.dequeue = function(){
-  var dequeued = this.storage[0];
-  var values = [];
-  var keys = [];
-  
-  delete this.storage[0];
-
-  for( var key in this.storage ){
-    values.push(this.storage[key]);
-  }
-  for( var i = 0; i < values.length; i++ ){
-    keys.push(i);
-  }
-
-  var keyValues = _.zip(keys, values);
-  var context = this;
-  context.storage = {};
-
-  _.each(keyValues, function(pairs){
-    context.storage[[pairs[0]]] = pairs[1];
-  });
-
-  return dequeued;
+  var value = this.storage[this.head];
+  delete this.storage[this.head];
+  this.head++;
+  return value;
 };
 
 Queue.prototype.size = function(){
