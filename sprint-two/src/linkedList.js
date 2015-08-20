@@ -23,9 +23,21 @@ var LinkedList = function(){
   };
 
   list.contains = function(target){
-    // check all values, return boolean
-    
+    var result = false;
+    var doesContain = function(someThing){
+      if( someThing.value === target) {
+        result = true;
+        return;
+      }
+      if( someThing.next !== null ){
+        doesContain(someThing.next);
+      }
+      return false;
+      };
+    doesContain(list.head);
+    return result;
   };
+
 
   return list;
 };
