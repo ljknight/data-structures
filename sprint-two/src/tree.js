@@ -19,7 +19,7 @@ treeMethods.contains = function(target){
   var childChecker = function(tree){
     if( tree.value === target ){
       contained = true;
-      return;
+      return true;
     }
     if( tree.children.length > 0 ){
       for( var i = 0; i < tree.children.length; i++ ){
